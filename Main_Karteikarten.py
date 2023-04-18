@@ -4,6 +4,15 @@ import sys
 from PIL import Image
 import glob
 import os
+from rich.console import Console
+from rich.theme import Theme
+costum_theme = Theme({"com": "cyan"})
+console = Console(theme = costum_theme)
+from rich.layout import Layout
+layout = Layout()
+from rich.panel import Panel
+from rich.text import Text
+
 
 class Karteikarte():
     def __init__(self, question, answer, picture):
@@ -26,8 +35,9 @@ class Neue_Karteikarten():
     
     def use_kk(self):
         self.kk_list = self.get_karteikarten()
-        print()
-        print('--- Karteikarten ---')
+        header = "\n---=: Karteikarten :=---\n"+"----"+chr(0x1F393)+" ----" +chr(0x1F393)+" ----"+chr(0x1F393)+" ---"
+        header_panel = Panel(Text(header), title = "by majukano", style="green", width=50, height = 5, padding=(0,0,0,0), expand = False, border_style = "green", title_align = "left")
+        console.print(header_panel)
         print(datetime.date.today())
         if len(self.kk_list) < 1:
             print('kein Karteikasten gefunden')
@@ -45,11 +55,11 @@ class Neue_Karteikarten():
         n = 0
         for kk in self.kk_list:
             n+=1
-            print('{} - {}'.format(n, kk))
+            console.print('[com]{}[/] - {}'.format(n, kk))
         test = True
         while test:
             test = False
-            print('Nummer eingeben (neu - neu Anlegen, del - löschen, ende - beenden):')
+            console.print('Nummer eingeben ([com]neu[/] - neu Anlegen, [com]del[/] - löschen, [com]ende[/] - beenden):')
             user_input = input('> ')
             if user_input == 'abort!':
                 print('Abbruch')
@@ -77,7 +87,7 @@ class Neue_Karteikarten():
         Main_Karteikarten(choosen_kk)
       
     def new_kk(self):
-        print('Name des neuen Karteikastens eingeben: (Abbrechen = abort!)')
+        print('Name des neuen Karteikastens eingeben: (Abbrechen = [cyan]abort![/])')
         kk_name = input('> ')
         if kk_name == 'abort!':
             self.use_kk()
@@ -248,12 +258,16 @@ class Main_Karteikarten():
                     start = False
                     if card.next_time <= datetime.date.today():
                         start = True
-                        print('Frage:')
-                        print(card.question)
+                        question = card.question
+                        question_panel = Panel(Text(question), title = "Frage", style="green", width=50, height = 5, padding=(0,0,0,0), expand = False, border_style = "green", title_align = "left")
+                        console.print(question_panel)
                         print('Entertaste zur Auflösung drücken:')
                         user_input = input()
                         print('Antwort:')
                         print(card.answer)
+                        answer = card.answer
+                        answer_panel = Panel(Text(answer), title = "Antwort", style="green", width=50, height = 5, padding=(0,0,0,0), expand = False, border_style = "green", title_align = "left")
+                        console.print(answer_panel)
                         try:
                             image = Image.open('picture/'+ card.picture)
                             image.show()
@@ -269,23 +283,27 @@ class Main_Karteikarten():
         self.main()
     
     def q_correct(self, card):
-        print('Richtig? j - ja, n - nein, a - abbrechen, c - Werte korrigieren')
-        user_input = input('> ')
-        if user_input == 'j':
-            card.correct = card.correct + 1
-            card.next_time = datetime.date.today() + datetime.timedelta(days=card.correct)
-            self.save_kk()
-        elif user_input == 'n':
-            card.correct = 0
-            card.next_time = datetime.date.today() + datetime.timedelta(days=card.correct)
-            self.save_kk()
-        elif user_input == 'a':
-            print('back to start')
-            self.main()
-        elif user_input == 'c':
-            self.correct_question(card)
-        else:
-            self.q_correct()
+        test = True
+        while test:
+            test = False
+            print('Richtig? j - ja, n - nein, a - abbrechen, c - Werte korrigieren')
+            user_input = input('> ')
+            if user_input == 'j':
+                card.correct = card.correct + 1
+                card.next_time = datetime.date.today() + datetime.timedelta(days=card.correct)
+                self.save_kk()
+            elif user_input == 'n':
+                card.correct = 0
+                card.next_time = datetime.date.today() + datetime.timedelta(days=card.correct)
+                self.save_kk()
+            elif user_input == 'a':
+                print('back to start')
+                self.main()
+            elif user_input == 'c':
+                self.correct_question(card)
+            else:
+                print("Antwort nicht erkannt")
+                test = True
         print('{} mal in Folge richtig geantwortet'.format(card.correct))
         print('Die Frage muss am {} zum nächsten mal beantwortet werden.'.format(card.next_time))
         
