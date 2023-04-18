@@ -262,10 +262,11 @@ class Main_Karteikarten():
     
     def start_kk(self):
         start = True
+        test = False
         while start:
             if len(self.KK) <= 0:
                 print('Keine Karteikarten gefunden. Unter -neu- neue Karten anlegen')
-                self.main()
+                break
             else:
                 for card in self.KK:
                     start = False
@@ -282,7 +283,6 @@ class Main_Karteikarten():
                         print('Entertaste zur Auflösung drücken:')
                         user_input = input()
                         print('Antwort:')
-                        print(card.answer)
                         answer = card.answer
                         answer_panel = Panel(Text(answer), title = "Antwort", style="green", width=50, height = 5, padding=(0,0,0,0), expand = False, border_style = "green", title_align = "left")
                         console.print(answer_panel)
