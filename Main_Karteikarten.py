@@ -240,26 +240,30 @@ class Main_Karteikarten():
     def start_kk(self):
         start = True
         while start:
-            for card in self.KK:
-                start = False
-                if card.next_time <= datetime.date.today():
-                    start = True
-                    print('Frage:')
-                    print(card.question)
-                    print('Entertaste zur Auflösung drücken:')
-                    user_input = input()
-                    print('Antwort:')
-                    print(card.answer)
-                    try:
-                        image = Image.open('picture/'+ card.picture)
-                        image.show()
-                    except:
-                        print('kein Bild gefunden')
-                    self.q_correct(card)
-                    print('Nächste Frage? j/n')
-                    user_input = input('> ')
-                    if user_input == 'n':
-                        self.main()
+            if len(self.KK) <= 0:
+                print('Keine Karteikarten gefunden. Unter -neu- neue Karten anlegen')
+                self.main()
+            else:
+                for card in self.KK:
+                    start = False
+                    if card.next_time <= datetime.date.today():
+                        start = True
+                        print('Frage:')
+                        print(card.question)
+                        print('Entertaste zur Auflösung drücken:')
+                        user_input = input()
+                        print('Antwort:')
+                        print(card.answer)
+                        try:
+                            image = Image.open('picture/'+ card.picture)
+                            image.show()
+                        except:
+                            print('kein Bild gefunden')
+                        self.q_correct(card)
+                        print('Nächste Frage? j/n')
+                        user_input = input('> ')
+                        if user_input == 'n':
+                            self.main()
         print('Das war es für heute')
         print('zurück zu start')
         self.main()
