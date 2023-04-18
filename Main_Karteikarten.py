@@ -188,17 +188,23 @@ class Main_Karteikarten():
                     print('Karteikartennummer?')
                     test = True
                     while test:
+                        test = False
+                        user_input = input ('> ')
+                        if user_input == 'abort!':
+                            test = True
+                            break
                         try:
-                            user_input = input ('> ')
-                            if user_input == 'abort!':
-                                break
                             user_input = int(user_input)-1
-                            self.print_card(user_input)
-                            self.correct_question(self.KK[user_input])
-                            test = False
+                            break
                         except:
                             print('keine oder falsche Kartenzahl eingegeben')
                             print('Abbrechen mit - abort!')
+                            test = True
+                    if test:
+                        break
+                    else:
+                        self.print_card(user_input)
+                        self.correct_question(self.KK[user_input])
                 else:
                     break
         self.main()
@@ -207,7 +213,10 @@ class Main_Karteikarten():
         print(self.KK[number].question)
         print(self.KK[number].answer)
         print(self.KK[number].picture)
-        print(self.KK[number].q_picture)
+        try:
+            print(self.KK[number].q_picture)
+        except:
+            print("kein Bild zur Frage evtl. eine alte Karte")
         print(self.KK[number].correct)
         print(self.KK[number].next_time)
     
@@ -326,7 +335,7 @@ class Main_Karteikarten():
                 card.next_time = datetime.date.today() + datetime.timedelta(days=card.correct)
                 self.save_kk()
             elif user_input == 'a':
-                print('back to start')
+                print('Zurück zu start')
                 self.main()
             elif user_input == 'c':
                 self.correct_question(card)
@@ -355,7 +364,10 @@ class Main_Karteikarten():
             self.correct_question(card)
         elif user_input == 'bf':
             print('altes Bild zur Frage:')
-            print(card.picture)
+            try:
+                print(card.q_picture)
+            except:
+                print("Kein Bild zur Frage evtl. eine alte Karte")
             q_picture = input('neu: ')
             card.q_picture = q_picture
             self.save_kk()
