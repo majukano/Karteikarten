@@ -44,6 +44,7 @@ class Neue_Karteikarten():
             print('kein Karteikasten gefunden')
             print('Neu anlegen? j/n (beenden mit ende)')
             user_input = input('> ')
+            print()
             if user_input == 'j':
                 self.new_kk()
             elif user_input == 'ende':
@@ -62,6 +63,7 @@ class Neue_Karteikarten():
             test = False
             console.print('Nummer eingeben ([com]neu[/] - neu Anlegen, [com]del[/] - löschen, [com]ende[/] - beenden):')
             user_input = input('> ')
+            print()
             if user_input == 'abort!':
                 print('Abbruch')
                 self.use_kk()
@@ -91,8 +93,9 @@ class Neue_Karteikarten():
         Main_Karteikarten(choosen_kk)
       
     def new_kk(self):
-        console.print('Name des neuen Karteikastens eingeben: (Abbrechen = [cyan]abort![/])')
+        console.print('Name des neuen Karteikastens eingeben: (Abbrechen = [com]abort![/])')
         kk_name = input('> ')
+        print()
         if kk_name == 'abort!':
             self.use_kk()
         else:
@@ -110,8 +113,9 @@ class Neue_Karteikarten():
         test = True
         while test:
             test = False
-            print('Nummer des Karteikasten zum löschen eingeben: (Abbrechen = abort!)')
+            print('Nummer des Karteikasten zum löschen eingeben: (Abbrechen = [com]abort![/])')
             user_input = input('> ')
+            print()
             if user_input == 'abort!':
                 print('Abbruch')
                 break
@@ -145,16 +149,17 @@ class Main_Karteikarten():
                 pickle.dump(self.KK, kk, pickle.HIGHEST_PROTOCOL)
  
     def help(self):
-        print('ende: beenden des Programms')
-        print('start: Starten der Karteikartenabfrage')
-        print('neu: Neue Karteikarte anlegen')
-        print('info: Informationen zu angelgten Karteikarten und Karteikarten bearbeiten')
-        print('zurück: zurück zur Karteikasten Auswahl')
+        console.print('[com]ende[/]: beenden des Programms')
+        console.print('[com]start[/]: Starten der Karteikartenabfrage')
+        console.print('[com]neu[/]: Neue Karteikarte anlegen')
+        console.print('[com]info[/]: Informationen zu angelgten Karteikarten und Karteikarten bearbeiten')
+        console.print('[com]zurück[/]: zurück zur Karteikasten Auswahl')
         self.main()
           
     def main(self):
-        print('Eingabe: hilfe, ende, start, neu, info, zurück')
+        console.print('Eingabe: [com]hilfe[/], [com]ende[/], [com]start[/], [com]neu[/], [com]info[/], [com]zurück[/]')
         user_input = input('> ')
+        print()
         if user_input == 'hilfe':
             self.help()
         elif user_input == 'ende':
@@ -182,8 +187,9 @@ class Main_Karteikarten():
         if len(self.KK) != 0:
             change = True
             while change:
-                print('Karte bearbeiten? j/n')
+                console.print('Karte bearbeiten? [com]j[/]/[com]n[/]')
                 user_input = input('> ')
+                print()
                 if user_input == 'j':
                     print('Karteikartennummer?')
                     test = True
@@ -221,9 +227,10 @@ class Main_Karteikarten():
         print(self.KK[number].next_time)
     
     def new_kk(self):
-        print('Abbrechen mit abort!')
+        console.print('Abbrechen mit [com]abort![/]')
         print('Frage eingeben:')
         input_question = input('> ')
+        print()
         if input_question == 'abort!':
             self.main()
         else:
@@ -232,6 +239,7 @@ class Main_Karteikarten():
         print('Falls ein Bild zur Frage vorhanden ist, Name eingeben: name.xxx:')
         print('Bild mit entsprechendem Namen bitte unter Ordner - picture - speichern')
         input_q_picture = input('> ')
+        print()
         if input_q_picture == 'abort!':
             self.main()
         else:
@@ -245,6 +253,7 @@ class Main_Karteikarten():
         print('Falls Bild zur Antwort vorhanden ist, Name eingeben: name.xxx')
         print('Bild mit entsprechendem Namen bitte unter Ordner - picture - speichern')
         input_picture = input('> ')
+        print()
         if input_picture == 'abort!':
             self.main()
         else:
@@ -254,8 +263,9 @@ class Main_Karteikarten():
         print('Bild zur Frage: {}'.format(q_picture))
         print('Antwort: {}'.format(answer))
         print('Bild zur Antwort: {}'.format(picture))
-        print('Speichern? - j/n - (abort!)')
+        console.print('Speichern? - [com]j[/]/[com]n[/] - ([com]abort![/])')
         save = input('> ')
+        print()
         if save == 'abort!':
             self.main()
         elif save == 'j':
@@ -274,7 +284,7 @@ class Main_Karteikarten():
         test = False
         while start:
             if len(self.KK) <= 0:
-                print('Keine Karteikarten gefunden. Unter -neu- neue Karten anlegen')
+                console.print('Keine Karteikarten gefunden. Mit -[com]neu[/]- neue Karten anlegen')
                 break
             else:
                 for card in self.KK:
@@ -291,6 +301,7 @@ class Main_Karteikarten():
                             print('kein Bild zur Frage gefunden')
                         print('Entertaste zur Auflösung drücken:')
                         user_input = input()
+                        print()
                         print('Antwort:')
                         answer = card.answer
                         answer_panel = Panel(Text(answer), title = "Antwort", style="green", width=50, height = 5, padding=(0,0,0,0), expand = False, border_style = "green", title_align = "left")
@@ -304,8 +315,9 @@ class Main_Karteikarten():
                         test = True
                         while test:
                             test = False
-                            print('Nächste Frage? j/n')
+                            console.print('Nächste Frage? [com]j[/]/[com]n[/]')
                             user_input = input('> ')
+                            print()
                             if user_input == 'j':
                                 break
                             elif user_input == 'n':
@@ -324,8 +336,9 @@ class Main_Karteikarten():
         test = True
         while test:
             test = False
-            print('Richtig? j - ja, n - nein, a - abbrechen, c - Werte korrigieren')
+            console.print('Richtig? [com]j[/] - ja, [com]n[/] - nein, [com]a[/] - abbrechen, [com]c[/] - Werte korrigieren')
             user_input = input('> ')
+            print()
             if user_input == 'j':
                 card.correct = card.correct + 1
                 card.next_time = datetime.date.today() + datetime.timedelta(days=card.correct)
@@ -346,12 +359,14 @@ class Main_Karteikarten():
         print('Die Frage muss am {} zum nächsten mal beantwortet werden.'.format(card.next_time))
         
     def correct_question(self, card):
-        print('Ändern: a - Antwort, q - Frage, c - Anzahl korrekter Antworten, bf - Bild zur Frage, ba - Bild zur Antwort, d - Löschen, n - nichts')
+        console.print('Ändern: [com]a[/] - Antwort, [com]q[/] - Frage, [com]c[/] - Anzahl korrekter Antworten, [com]bf[/] - Bild zur Frage, [com]ba[/] - Bild zur Antwort, [com]d[/] - Löschen, [com]n[/] - nichts')
         user_input = input('> ')
+        print()
         if user_input == 'a':
             print('alte Antwort:')
             print(card.answer)
             answer = input('neu: ')
+            print()
             card.answer = answer
             self.save_kk()
             self.correct_question(card)
@@ -359,6 +374,7 @@ class Main_Karteikarten():
             print('alte Frage:')
             print(card.question)
             question = input('neu: ')
+            print()
             card.question = question
             self.save_kk()
             self.correct_question(card)
@@ -369,6 +385,7 @@ class Main_Karteikarten():
             except:
                 print("Kein Bild zur Frage evtl. eine alte Karte")
             q_picture = input('neu: ')
+            print()
             card.q_picture = q_picture
             self.save_kk()
             self.correct_question(card)
@@ -376,6 +393,7 @@ class Main_Karteikarten():
             print('altes Bild zur Antwort:')
             print(card.picture)
             picture = input('neu: ')
+            print()
             card.picture = picture
             self.save_kk()
             self.correct_question(card)
@@ -383,6 +401,7 @@ class Main_Karteikarten():
             print('alte Anzahl korrekter Antworten:')
             print(card.correct)
             correct = input('neu: ')
+            print()
             card.correct = int(correct)
             card.next_time = datetime.date.today() + datetime.timedelta(days=card.correct)
             self.save_kk()
@@ -393,8 +412,9 @@ class Main_Karteikarten():
             print(card.answer)
             print(card.picture)
             print(card.correct)
-            print('Löschen? j/n')
+            console.print('Löschen? [com]j[/]/[com]n[/]')
             user_input = input('> ')
+            print()
             if user_input == 'j':
                 self.KK.remove(card)
                 self.save_kk()
