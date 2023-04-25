@@ -166,11 +166,11 @@ class Main_Karteikarten():
                 pickle.dump(self.KK, kk, pickle.HIGHEST_PROTOCOL)
  
     def help(self):
-        console.print('[com]ende[/]: beenden des Programms')
+        console.print('[com]ende[/]: Beenden des Programms')
         console.print('[com]start[/]: Starten der Karteikartenabfrage')
         console.print('[com]neu[/]: Neue Karteikarte anlegen')
         console.print('[com]info[/]: Informationen zu angelgten Karteikarten und Karteikarten bearbeiten')
-        console.print('[com]zurück[/]: zurück zur Karteikasten Auswahl')
+        console.print('[com]zurück[/]: Zurück zur Karteikasten Auswahl')
         self.main()
           
     def main(self):
