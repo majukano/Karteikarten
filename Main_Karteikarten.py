@@ -113,20 +113,37 @@ class Neue_Karteikarten():
         test = True
         while test:
             test = False
-            print('Nummer des Karteikasten zum löschen eingeben: (Abbrechen = [com]abort![/])')
-            user_input = input('> ')
+            console.print('Nummer des Karteikasten zum löschen eingeben: (Abbrechen = [com]abort![/])')
+            user_input_num = input('> ')
             print()
-            if user_input == 'abort!':
+            if user_input_num == 'abort!':
                 print('Abbruch')
                 break
             else:
                 try:
-                    delate_kk = self.kk_list[int(user_input)-1]
-                    os.remove(delate_kk)
-                    print('{} gelöscht'.format(delate_kk))
+                    self.kk_list[int(user_input_num)-1]
                 except:
                     print('keine gültige Nummer')
                     test = True
+            
+            if test == False:
+                test_2 = True
+                while test_2:
+                    test_2 = False            
+                    console.print('Es soll sicher Karteikasten [red]{}[/] gelöscht werden? [com]j[/]/[com]n[/]'.format(self.kk_list[int(user_input_num)-1]))
+                    user_input = input('> ')
+                    print()
+                    if user_input == 'j':
+                            delate_kk = self.kk_list[int(user_input_num)-1]
+                            os.remove(delate_kk)
+                            print('{} gelöscht'.format(delate_kk))
+                    elif user_input == 'n':
+                        break
+                    else:
+                        print('Eingabe nicht erkannt')
+                        test_2 = True
+                if test_2 == False:
+                    break
         self.use_kk()
         
 class Main_Karteikarten():
