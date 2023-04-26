@@ -309,7 +309,7 @@ class Main_Karteikarten():
                     if card.next_time <= datetime.date.today():
                         start = True
                         question = card.question
-                        question_panel = Panel(Text(question), title = "Frage", style="green", width=50, height = 5, padding=(0,0,0,0), expand = False, border_style = "green", title_align = "left")
+                        question_panel = Panel(Text(question), title = "Frage", style="green", width=50, padding=(0,0,0,0), expand = True, border_style = "green", title_align = "left")#  width=50, height = 5,
                         console.print(question_panel)
                         try:
                             image = Image.open('picture/'+ card.q_picture)
@@ -321,7 +321,7 @@ class Main_Karteikarten():
                         print()
                         print('Antwort:')
                         answer = card.answer
-                        answer_panel = Panel(Text(answer), title = "Antwort", style="green", width=50, height = 5, padding=(0,0,0,0), expand = False, border_style = "green", title_align = "left")
+                        answer_panel = Panel(Text(answer), title = "Antwort", style="green" ,width=50 ,padding=(0,0,0,0), expand = True, border_style = "green", title_align = "left")#  width=50, height = 5
                         console.print(answer_panel)
                         try:
                             image = Image.open('picture/'+ card.picture)
