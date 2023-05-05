@@ -304,48 +304,67 @@ class Main_Karteikarten():
                 console.print('Keine Karteikarten gefunden. Mit -[com]neu[/]- neue Karten anlegen')
                 break
             else:
+                c_n = 0
                 for card in self.KK:
-                    start = False
                     if card.next_time <= datetime.date.today():
-                        start = True
-                        question = card.question
-                        question_panel = Panel(Text(question), title = "Frage", style="green", width=50, padding=(0,0,0,0), expand = True, border_style = "green", title_align = "left")#  width=50, height = 5,
-                        console.print(question_panel)
-                        try:
-                            image = Image.open('picture/'+ card.q_picture)
-                            image.show()
-                        except:
-                            print('kein Bild zur Frage gefunden')
-                        print('Entertaste zur Auflösung drücken:')
-                        user_input = input()
-                        print()
-                        print('Antwort:')
-                        answer = card.answer
-                        answer_panel = Panel(Text(answer), title = "Antwort", style="green" ,width=50 ,padding=(0,0,0,0), expand = True, border_style = "green", title_align = "left")#  width=50, height = 5
-                        console.print(answer_panel)
-                        try:
-                            image = Image.open('picture/'+ card.picture)
-                            image.show()
-                        except:
-                            print('kein Bild zur Antwort gefunden')
-                        self.q_correct(card)
-                        test = True
-                        while test:
-                            test = False
-                            console.print('Nächste Frage? [com]j[/]/[com]n[/]')
-                            user_input = input('> ')
+                        c_n += 1
+                if c_n > 0:
+                    for card in self.KK:
+                        if card.next_time <= datetime.date.today():
+                            c_n = 0
+                            for card_t in self.KK:
+                                if card_t.next_time <= datetime.date.today():
+                                    c_n += 1
+                            print('{} übrige Karten'.format(c_n))
+                            start = True
+                            question = card.question
+                            question_panel = Panel(Text(question), title = "Frage", style="green", width=50, padding=(0,0,0,0), expand = True, border_style = "green", title_align = "left")#  width=50, height = 5,
+                            console.print(question_panel)
+                            try:
+                                image = Image.open('picture/'+ card.q_picture)
+                                image.show()
+                            except:
+                                print('kein Bild zur Frage gefunden')
+                            print('Entertaste zur Auflösung drücken:')
+                            user_input = input()
                             print()
-                            if user_input == 'j':
-                                break
-                            elif user_input == 'n':
-                                test = True
+                            print('Antwort:')
+                            answer = card.answer
+                            answer_panel = Panel(Text(answer), title = "Antwort", style="green" ,width=50 ,padding=(0,0,0,0), expand = True, border_style = "green", title_align = "left")#  width=50, height = 5
+                            console.print(answer_panel)
+                            try:
+                                image = Image.open('picture/'+ card.picture)
+                                image.show()
+                            except:
+                                print('kein Bild zur Antwort gefunden')
+                            self.q_correct(card)
+                            test = True
+                            while test:
+                                test = False
+                                console.print('Nächste Frage? [com]j[/]/[com]n[/]')
+                                user_input = input('> ')
+                                print()
+                                if user_input == 'j':
+                                    break
+                                elif user_input == 'n':
+                                    test = True
+                                    break
+                                else:
+                                    test = True
+                                    print('Anwort nicht verstanden')
+                            if test:
+                                start = False
+                                print('Vorzeitig beendet')
                                 break
                             else:
-                                test = True
-                                print('Anwort nicht verstanden')
-                if test:
-                    break
-                print('Das war es für heute')
+                                start = True
+                                pass
+                    if start == False:
+                        break
+                else:
+                    start = False
+                    print('Keine Karten für heute')
+                    break    
         print('zurück zu start')
         self.main()
     
