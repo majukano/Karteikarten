@@ -4,6 +4,7 @@ import sys
 from PIL import Image
 import glob
 import os
+import random
 from rich.console import Console
 from rich.theme import Theme
 costum_theme = Theme({"com": "cyan"})
@@ -12,7 +13,6 @@ from rich.layout import Layout
 layout = Layout()
 from rich.panel import Panel
 from rich.text import Text
-
 
 class Karteikarte():
     def __init__(self, question, answer, picture, q_picture):
@@ -309,6 +309,7 @@ class Main_Karteikarten():
                     if card.next_time <= datetime.date.today():
                         c_n += 1
                 if c_n > 0:
+                    random.shuffle(self.KK)
                     for card in self.KK:
                         if card.next_time <= datetime.date.today():
                             c_n = 0
