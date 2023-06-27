@@ -14,6 +14,11 @@ layout = Layout()
 from rich.panel import Panel
 from rich.text import Text
 
+class Einstellungen():
+    def __init__(self):
+        self.learn_card = 10
+        self.compare = False
+
 class Karteikarte():
     def __init__(self, question, answer, picture, q_picture):
         self.question = question
@@ -104,7 +109,7 @@ class Neue_Karteikarten():
                 pass
             print('Karteikasten {} erstellt'.format(kk_name))
             self.use_kk()
-    
+
     def del_kk(self):
         n = 0
         for kk in self.kk_list:
