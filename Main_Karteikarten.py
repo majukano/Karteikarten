@@ -145,7 +145,8 @@ class Neue_Karteikarten():
                 if test_2 == False:
                     break
         self.use_kk()
-        
+
+
 class Main_Karteikarten():
     def __init__(self, choosen_kk):
         self.choosen_kk = choosen_kk
