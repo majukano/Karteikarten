@@ -31,9 +31,18 @@ class Karteikarte():
 
 class Neue_Karteikarten():
     def __init__(self):
+        self.settings_file()
         self.kk_list = self.get_karteikarten()
         self.use_kk()
         self.choose_kk = 'null'
+
+    def settings_file(self):
+        settings_file = 'settings/settings.pkl'
+        if os.path.isfile(settings_file):
+            pass
+        else:
+            with open(settings_file, 'w') as f:
+                pass
     
     def get_karteikarten(self):
         kk_list = glob.glob(os.path.join('*.pkl'))
