@@ -16,7 +16,7 @@ from rich.text import Text
 
 class Einstellungen():
     def __init__(self):
-        self.learn_card = 10
+        self.learn_cards_num = 10
         self.compare = False
 
 class Karteikarte():
@@ -175,11 +175,12 @@ class Main_Karteikarten():
         console.print('[com]start[/]: Starten der Karteikartenabfrage')
         console.print('[com]neu[/]: Neue Karteikarte anlegen')
         console.print('[com]info[/]: Informationen zu angelgten Karteikarten und Karteikarten bearbeiten')
+        console.print('[com]einstellungen[/]: Einstellungen vornehmen')
         console.print('[com]zurück[/]: Zurück zur Karteikasten Auswahl')
         self.main()
           
     def main(self):
-        console.print('Eingabe: [com]hilfe[/], [com]ende[/], [com]start[/], [com]neu[/], [com]info[/], [com]zurück[/]')
+        console.print('Eingabe: [com]hilfe[/], [com]ende[/], [com]start[/], [com]neu[/], [com]info[/], [com]einstellungen[/], [com]zurück[/]')
         user_input = input('> ')
         print()
         if user_input == 'hilfe':
@@ -192,11 +193,16 @@ class Main_Karteikarten():
             self.start_kk()
         elif user_input == 'info':
             self.info_kk()
+        elif user_input == 'einstellungen':
+            self.setup_kk()
         elif user_input == 'zurück':
            K1 = Neue_Karteikarten()    
         else:
             print('Eingabe nicht erkannt')
             self.main()
+
+    def setup_kk(self):
+        pass
 
     def info_kk(self):
         print('Anzahl der Karteikarten: {}'.format(len(self.KK)))
