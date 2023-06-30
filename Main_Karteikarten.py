@@ -3,6 +3,7 @@ import datetime
 import sys
 from PIL import Image
 import glob
+import json
 import os
 import random
 from rich.console import Console
@@ -14,10 +15,23 @@ layout = Layout()
 from rich.panel import Panel
 from rich.text import Text
 
-class Einstellungen():
-    def __init__(self):
-        self.learn_cards_num = 10
-        self.compare = False
+class Settings():
+    def __init__(self, modus):
+        self.modus = modus
+        self.settings_file = 'settings.json'
+        self.settings_var = {
+            "lern_cards" : 10,
+            "comparison" : False
+        }
+        self.settings_setup(self.modus)
+
+    def settings_setup(self, modus):
+        if os.path.isfile(self.settings_file) and self.modus == 'start':
+            pass
+        else:
+            with open(self.settings_file, 'w') as f:
+                json.dump(self.settings_var, f)
+
 
 class Karteikarte():
     def __init__(self, question, answer, picture, q_picture):
@@ -31,18 +45,10 @@ class Karteikarte():
 
 class Neue_Karteikarten():
     def __init__(self):
-        self.settings_file()
+        Setting = Settings('start')
         self.kk_list = self.get_karteikarten()
         self.use_kk()
         self.choose_kk = 'null'
-
-    def settings_file(self):
-        settings_file = 'settings/settings.pkl'
-        if os.path.isfile(settings_file):
-            pass
-        else:
-            with open(settings_file, 'w') as f:
-                pass
     
     def get_karteikarten(self):
         kk_list = glob.glob(os.path.join('*.pkl'))
@@ -178,7 +184,7 @@ class Main_Karteikarten():
     def save_kk(self):
         with open(self.choosen_kk, 'wb') as kk:
                 pickle.dump(self.KK, kk, pickle.HIGHEST_PROTOCOL)
- 
+
     def help(self):
         console.print('[com]ende[/]: Beenden des Programms')
         console.print('[com]start[/]: Starten der Karteikartenabfrage')
